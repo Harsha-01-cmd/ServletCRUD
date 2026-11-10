@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Servlet CRUD Demo
+    A Jakarta Servlet-based CRUD application for managing User records.
+    Uses in-memory HashMap as a simple data store (no database).
+    Deployed as a WAR file to a servlet container like Tomcat or Jetty.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Maven coordinates: uniquely identify this project. -->
+    <groupId>in.HarshaRashmi</groupId>
+    <artifactId>ServletCrudDemo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- WAR packaging: produces a deployable web archive for a servlet container. -->
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!-- Jakarta Servlet API: provides @WebServlet, HttpServlet, HttpServletRequest, etc. -->
+        <!-- Scope "provided" means the servlet container (Tomcat) supplies this at runtime. -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <!-- Java 23 compiler source and target version. -->
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <!-- Final WAR file name: crud-app.war -->
+        <finalName>crud-app</finalName>
+    </build>
+
+</project>
