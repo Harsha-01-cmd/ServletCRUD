@@ -42,6 +42,8 @@ A Jakarta Servlet-based CRUD application for managing User records, deployed as 
 | `POST` | `/crud-app/users` | Create a new user |
 | `GET` | `/crud-app/users` | Get all users |
 | `GET` | `/crud-app/users?id=1` | Get user by ID |
+| `PUT` | `/crud-app/users` | Update an existing user |
+| `DELETE` | `/crud-app/users?id=1` | Delete a user by ID |
 
 ## Example Request
 
