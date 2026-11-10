@@ -43,4 +43,21 @@ public class UserService {
     public User getUserById(Integer id) {
         return userDB.getOrDefault(id, null);
     }
+
+    /** Updates an existing user's fields. */
+    public User updateUser(Integer id, User userReq) {
+        User existingUser = userDB.get(id);
+        if (existingUser == null) {
+            return null;
+        }
+        existingUser.setName(userReq.getName());
+        existingUser.setEmail(userReq.getEmail());
+        existingUser.setMobile(userReq.getMobile());
+        return existingUser;
+    }
+
+    /** Deletes a user by ID from the in-memory map. */
+    public void deleteUser(Integer id) {
+        userDB.remove(id);
+    }
 }
