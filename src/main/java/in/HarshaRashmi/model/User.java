@@ -58,4 +58,19 @@ public class User {
     public String toString() {
         return "User{id=" + id + ", name='" + name + "', email='" + email + "', mobile='" + mobile + "'}";
     }
+
+    /** Compares this User with another object for equality based on id. */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        return id != null && id.equals(user.id);
+    }
+
+    /** Generates a hash code based on the id field. */
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
