@@ -39,6 +39,9 @@ public class UserServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
 
+        // Set response content type for JSON
+        response.setContentType("application/json");
+
         Integer id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
