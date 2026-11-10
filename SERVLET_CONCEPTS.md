@@ -78,9 +78,35 @@ private String userToJson(User user) {
 
 In production, use a JSON library like Jackson for safety and convenience.
 
+## Complete CRUD Flow
+
+```
+Client (Browser/Thunder Client)
+    ↓ HTTP Request
+Servlet Container (Tomcat)
+    ↓ Routes by @WebServlet mapping
+UserServlet.doPost() / doGet() / doPut() / doDelete()
+    ↓ Delegates to
+UserService.createUser() / getAllUsers() / updateUser() / deleteUser()
+    ↓ In-memory storage
+HashMap<Integer, User>
+    ↓ HTTP Response
+Client receives JSON
+```
+
 ## WAR Deployment
 
 1. Build: `mvn clean package` → produces `target/crud-app.war`
 2. Deploy: Copy `crud-app.war` to Tomcat's `webapps/` directory
 3. Start Tomcat → the WAR is auto-extracted and deployed
 4. Access: `http://localhost:8080/crud-app/`
+
+## Testing with Thunder Client
+
+| Method | URL | Parameters |
+|--------|-----|-----------|
+| `POST` | `http://localhost:8080/crud-app/users` | id=1, name=John, email=john@example.com, mobile=1234567890 |
+| `GET` | `http://localhost:8080/crud-app/users` | (none — returns all users) |
+| `GET` | `http://localhost:8080/crud-app/users?id=1` | id=1 |
+| `PUT` | `http://localhost:8080/crud-app/users` | id=1, name=Jane, email=jane@example.com, mobile=0987654321 |
+| `DELETE` | `http://localhost:8080/crud-app/users?id=1` | id=1 |
