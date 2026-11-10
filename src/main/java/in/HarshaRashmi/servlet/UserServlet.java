@@ -111,18 +111,95 @@ public class UserServlet extends HttpServlet {
         response.getWriter().write(userToJson(userResp));
     }
 
-    /** doPut() — update a user (not yet implemented). */
+    /**
+     * doPut() — updates an existing user.
+     *
+     * Expects form parameters: id, name, email, mobile.
+     * Returns 200 OK on success, 404 if user not found.
+     */
     @Override
-    public void doPut(HttpServletRequest httpServletRequest,
-                      HttpServletResponse httpServletResponse) {
-        // TODO: implement update logic
+    public void doPut(HttpServletRequest request,
+                      HttpServletResponse response) throws IOException {
+
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String mobile = request.getParameter("mobile");
+
+        User existingUser = userService.getUserById(id);
+
+        if (existingUser == null) {
+            response.setStatus(404);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    "{\n" +
+                            "    \"message\" : \"User not found\"\n" +
+                            "}"
+            );
+            return;
+        }
+
+        // Update the fields
+        existingUser.setName(name);
+        existingUser.setEmail(email);
+        existingUser.setMobile(mobile);
+
+        response.setStatus(200);
+        response.setContentType("application/json");
+        response.getWriter().write(
+                "{\n" +
+                        "    \"message\" : \"User updated successfully\"\n" +
+                        "}"
+        );
     }
 
-    /** doDelete() — delete a user (not yet implemented). */
+    /**
+     * doDelete() — deletes a user by ID.
+     *
+     * Expects query parameter: id.
+     * Returns 200 OK on success, 404 if user not found.
+     */
     @Override
-    public void doDelete(HttpServletRequest httpServletRequest,
-                         HttpServletResponse httpServletResponse) {
-        // TODO: implement delete logic
+    public void doDelete(HttpServletRequest request,
+                         HttpServletResponse response) throws IOException {
+
+        String idParam = request.getParameter("id");
+
+        if (idParam == null) {
+            response.setStatus(400);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    "{\n" +
+                            "    \"message\" : \"ID parameter is required\"\n" +
+                            "}"
+            );
+            return;
+        }
+
+        Integer id = Integer.parseInt(idParam);
+        User existingUser = userService.getUserById(id);
+
+        if (existingUser == null) {
+            response.setStatus(404);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    "{\n" +
+                            "    \"message\" : \"User not found\"\n" +
+                            "}"
+            );
+            return;
+        }
+
+        // Remove the user from the in-memory store
+        userService.deleteUser(id);
+
+        response.setStatus(200);
+        response.setContentType("application/json");
+        response.getWriter().write(
+                "{\n" +
+                        "    \"message\" : \"User deleted successfully\"\n" +
+                        "}"
+        );
     }
 
     /**
