@@ -52,4 +52,10 @@ public class User {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
+    /** Returns a string representation of the User object. */
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", name='" + name + "', email='" + email + "', mobile='" + mobile + "'}";
+    }
 }
